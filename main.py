@@ -7,7 +7,7 @@ cur_len = 0
 tempo = 5000000
 
 mid = MidiFile("midi/march1.mid")
-for track in enumerate(mid.tracks):
+for i, track in enumerate(mid.tracks):
     for msg in track:
         time = msg.time * (60 / (mid.ticks_per_beat * (60000000 / tempo)))
 
