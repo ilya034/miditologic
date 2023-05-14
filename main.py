@@ -1,4 +1,6 @@
 from mido import MidiFile
+from os import mkdir, path
+if not path.isdir("code"): mkdir("code")
 
 proc_num = 1
 commands = []
