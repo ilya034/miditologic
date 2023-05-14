@@ -6,10 +6,10 @@ code = "sensor en switch1 @enabled\njump 0 notEqual en 1\ncontrol enabled switch
 cur_len = 0
 tempo = 5000000
 
-mid = MidiFile("march2.mid")
-for i, track in enumerate(mid.tracks):
+mid = MidiFile("midi/march1.mid")
+for track in enumerate(mid.tracks):
     for msg in track:
-        time = msg.time * (60 / (mid.ticks_per_beat * (60000000 / tempo)))  # delta time in seconds
+        time = msg.time * (60 / (mid.ticks_per_beat * (60000000 / tempo)))
 
         if msg.type == "set_tempo":
             tempo = msg.tempo
@@ -36,7 +36,7 @@ for i, track in enumerate(mid.tracks):
                 code += f"control enabled {cmd} 1 0 0 0\n" if isinstance(cmd, str) else f"wait {cmd}\n"
             code += f"write 1 cell1 {proc_num + 1}\nwrite 0 cell1 {proc_num}\n"
 
-            with open(f"code{proc_num}.txt", "w") as f:
+            with open(f"code/code{proc_num}.txt", "w") as f:
                 f.write(code)
 
             proc_num += 1
@@ -50,7 +50,7 @@ for cmd in commands:
     code += f"control enabled {cmd} 1 0 0 0\n" if isinstance(cmd, str) else f"wait {cmd}\n"
 code += f"write 1 cell1 {proc_num + 1}\nwrite 0 cell1 {proc_num}\n"
 
-with open(f"code{proc_num}.txt", "w") as f:
+with open(f"code/code{proc_num}.txt", "w") as f:
     f.write(code)
 
 print(proc_num)
